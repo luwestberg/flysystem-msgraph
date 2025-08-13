@@ -78,6 +78,10 @@ class Adapter implements FilesystemAdapter
         return $this->getDriveRootUrl() . ':/' . $path;
     }
 
+    public function getUrlToId(string $id): string{
+        return '/drives/' . $this->drive_id . '/items/' . $id;
+    }
+
     /**
      * @throws GraphException
      * @throws GuzzleException

@@ -475,6 +475,10 @@ class Adapter implements FilesystemAdapter
                 StorageAttributes::ATTRIBUTE_MIME_TYPE => $item->getFile()
                     ? $item->getFile()->getMimeType()
                     : null,
+                StorageAttributes::ATTRIBUTE_EXTRA_METADATA => [
+                    'id' => $item->getFile()->getId(),
+                    'properties' => $item->getFile()->getProperties()
+                ],
                 'visibility' => 'public',
             ]);
         }, $drive_items);

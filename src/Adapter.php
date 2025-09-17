@@ -314,6 +314,24 @@ class Adapter implements FilesystemAdapter
         }
     }
 
+    public function rename(string $fileId, string $newName)
+    {
+        try {
+            return $this->graph
+                ->createRequest(
+                    'PATCH',
+                    $this->getUrlToId($fileId)
+                )
+                ->attachBody([
+                    'name' => $newName,
+                ])
+                ->execute()
+                ->getBody();
+        } catch (GuzzleException|GraphException|FilesystemException $e) {
+            throw UnableToMoveFile::fromLocationTo($fileId, $newName, $e);
+        }
+    }
+
     public function delete(string $path): void
     {
         try {

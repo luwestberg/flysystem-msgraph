@@ -155,6 +155,7 @@ class Adapter implements FilesystemAdapter
 
 
             $file_name = basename($path);
+            $file_name = rawurlencode($file_name);
             $parentItem = $this->getUrlToPath(dirname($path));
             $this->graph
                 ->createRequest(
@@ -492,6 +493,7 @@ class Adapter implements FilesystemAdapter
     private function getChildren($directory): array
     {
         $path = $directory . ':/children';
+        $path = rawurlencode($path);
         $request = $this->graph
             ->createCollectionRequest('GET', $path)
             ->setReturnType(DriveItem::class);
@@ -614,6 +616,7 @@ class Adapter implements FilesystemAdapter
      */
     public function getFile(string $path): File
     {
+        $path = rawurlencode($path);
         return $this->graph
             ->createRequest('GET', $path)
             ->setReturnType(File::class)
@@ -626,6 +629,7 @@ class Adapter implements FilesystemAdapter
      */
     public function getDirectory(string $path): Directory
     {
+        $path = rawurlencode($path);
         return $this->graph
             ->createRequest('GET', $path)
             ->setReturnType(Directory::class)
@@ -638,6 +642,7 @@ class Adapter implements FilesystemAdapter
      */
     public function getDriveItem(string $path): DriveItem
     {
+        $path = rawurlencode($path);
         return $this->graph
             ->createRequest('GET', $path)
             ->setReturnType(DriveItem::class)
